@@ -33,6 +33,7 @@ categoriesRouter
     })
     .get((req, res, next) => {
         res.json(res.category)
+            .catch(next)
     })
     .post(bodyParser, (req, res, next) => {
         const { category_title,  user_id } = req.body;
