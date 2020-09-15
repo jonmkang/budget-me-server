@@ -35,6 +35,7 @@ itemsRouter
     })
     .get((req, res, next) => {
         res.json(res.items)
+            .catch(next)
     })
     .post(bodyParser, (req, res, next) => {
         const { item_name, user_id, category_id, amount } = req.body;
@@ -78,8 +79,6 @@ itemsRouter
                     .json(serializeItem(item))
             })
             .catch(next)
-
-
     })
 
 module.exports = itemsRouter;
