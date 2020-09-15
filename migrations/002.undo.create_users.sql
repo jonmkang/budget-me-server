@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS budget_user CASCADE;
+
+ALTER TABLE category DROP COLUMN user_id;

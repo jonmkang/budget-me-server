@@ -6,6 +6,9 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const e = require('express')
 
+const itemsRouter = require('./items/items-router')
+const categoriesRouter = require('./categories/categories-router')
+
 const app = express()
 
 const morganOption = (NODE_ENV === 'production')
@@ -19,6 +22,9 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
+
+app.use('/api/items', itemsRouter);
+app.use('/api/categories', categoriesRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
