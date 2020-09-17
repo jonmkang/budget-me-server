@@ -4,7 +4,7 @@ const { PORT } = require('./config');
 
 const db = knex({
   client: 'pg',
-  connection: "postgresql://dunder_mifflin:abcd@localhost/budget-me"
+  connection: process.env.DATABASE_URL
 })
 
 app.set('db', db);
