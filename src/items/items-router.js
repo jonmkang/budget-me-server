@@ -34,8 +34,7 @@ itemsRouter
             .catch()
     })
     .get((req, res, next) => {
-        res.json(res.items)
-            .catch(next)
+        res.status(200).json(res.items)
     })
     .post(bodyParser, (req, res, next) => {
         const { item_name, user_id, category_id, amount } = req.body;
