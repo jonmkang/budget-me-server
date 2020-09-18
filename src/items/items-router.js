@@ -79,5 +79,62 @@ itemsRouter
             })
             .catch(next)
     })
+itemsRouter
+    .route('/:user_id/:item_id')
+    .all((req, res, next) => {
+        //Sends item_id and user_id so only the user can change the item contents
+        itemsService.checkItemByUserId(
+            req.app.get('db'),
+            req.params.item_id,
+            req.params.user_id
+        )   
+            .then(items => {
+                if(!items){
+                    return res.status(404).json({
+                        error:{
+                            message: `No items found for user`
+                        }
+                    })
+                }   
+                res.items = items;
+                next()
+            })
+            .catch()
+    })
+    .get((req, res, next) => {
+        res.status(200).json(res.items)
+    })
+    .patch(bodyParser, (req, res, next) => {
+        const { item } = req.body;
+        console.log(item)
+        itemsService.checkItemByUserId(
+            req.app.get('db'),
+            req.params.item_id, 
+            req.params.user_id
+        )
+        .then(item => {
+            if(!item){
+                return res.status(404).json({
+                    error:{
+                        message: `No item does not exist for user`
+                    }
+                })
+            }   
+        })
+        .catch(next)
+
+        itemsService.updateItem(
+            req.app.get('db'),
+            req.params.item_id,
+            item
+        )
+            .then(item => {
+                console.log(item)
+                res
+                    .status(204)
+                    .json(item)
+            })
+            .catch(next)
+    })
 
 module.exports = itemsRouter;

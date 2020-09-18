@@ -8,6 +8,13 @@ const CategoriesService = {
             .from('category')
             .where('category.user_id', id)
     },
+    getByName(db, title){
+        return db
+            .select('*')
+            .from('category')
+            .where('category.category_title', title)
+            
+    },
     addCategory(db, newCategory){
         return db
             .insert(newCategory)
@@ -16,6 +23,16 @@ const CategoriesService = {
             .then(rows => {
                 return rows[0]
             })
+    },
+    deleteCategory(db, title){
+        return db('category')
+            .where('category.category_title', title)
+            .delete()
+    },
+    updateCategory(db, title, newCategoryTitle){
+        return db('category')
+            .where('category.category_title', title)
+            .update(newCategoryTitle)
     }
         
 }

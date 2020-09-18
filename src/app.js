@@ -11,8 +11,6 @@ const categoriesRouter = require('./categories/categories-router')
 
 const app = express()
 
-console.log("database_url", process.env.DATABASE_URL)
-
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';

@@ -13,7 +13,7 @@ const serializeCategory = category => ({
 
 categoriesRouter
     .route('/:user_id')
-    .all((req, res, next) => {
+    .get((req, res, next) => {
         CategoriesService.getByUserId(
             req.app.get('db'),
             req.params.user_id
@@ -27,19 +27,19 @@ categoriesRouter
                     })
                 }
                 res.category = category;
-                next()
+                res.status(200).json(res.category)
+                
             })
-            .catch()
-    })
-    .get((req, res, next) => {
-        res.status(200).json(res.category)
+            .catch(next)
     })
     .post(bodyParser, (req, res, next) => {
-        const { category_title,  user_id } = req.body;
+        const { category_title } = req.body;
+        const { user_id } = req.params;
         const newCategory = {
             category_title,
             user_id
         }
+        console.log(newCategory)
 
         if(!category_title){
             return res.status(404).json({
@@ -56,6 +56,55 @@ categoriesRouter
                     .json(serializeCategory(category))
             })
             .catch(next)
+    })
 
+categoriesRouter
+    .route('/:user_id/:category_name')
+    .all((req, res, next) => {
+        CategoriesService.getByName(
+            req.app.get('db'),
+            req.params.category_name
+        )
+            .then(category => {
+                if(!category){
+                    return res.status(404).json({
+                        error: { message: `Category doesn't exist`}
+                    })
+                }
+                res.category = category
+                next()
+            })
+            .catch()
+    })
+    .delete(bodyParser, (req, res, next) => {
+        CategoriesService.deleteCategory(
+            req.app.get('db'),
+            req.params.category_name
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
+            })
+            .catch(next)
+    })
+    .patch(bodyParser, (req, res, next) => {
+        const { category_title } = req.body;
+        const user_id = req.params.user_id;
+        const updateCategory = { category_title, user_id }
+
+        if(!updateCateogry.category_title){
+            return res.status(400).json({
+                error: {
+                    message: `Request body must contain category title`
+                }
+            })
+        }
+        CategoriesService.updateCategory(
+            req.app.get('db'),
+            req.params.category_title,
+            updateCategory
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
+            })
     })
 module.exports = categoriesRouter;
