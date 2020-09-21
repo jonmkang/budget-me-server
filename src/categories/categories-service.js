@@ -30,7 +30,6 @@ const CategoriesService = {
             .delete()
     },
     updateCategory(db, title, newCategoryTitle){
-        console.log(title, newCategoryTitle)
         return db('category')
             .where('category.category_title', title)
             .update(newCategoryTitle)

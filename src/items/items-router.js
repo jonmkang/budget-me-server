@@ -21,7 +21,6 @@ itemsRouter
             req.params.user_id
         )   
             .then(items => {
-                console.log(req.body)
                 if(!items){
                     return res.status(404).json({
                         error:{
@@ -38,7 +37,6 @@ itemsRouter
         res.status(200).json(res.items)
     })
     .post(bodyParser, (req, res, next) => {
-        console.log(req.body)
         const { item_name, user_id, category_id, amount } = req.body;
         const newItem = {
             item_name,
@@ -60,7 +58,7 @@ itemsRouter
 
         if(!category_id){
             return res.status(404).json({
-                error: { message: 'Missing category id in request body'}
+                error: { message: 'Missing category name in request body'}
             })
         }
 
@@ -107,7 +105,7 @@ itemsRouter
     })
     .patch(bodyParser, (req, res, next) => {
         const { item } = req.body;
-        console.log(item)
+
         itemsService.checkItemByUserId(
             req.app.get('db'),
             req.params.item_id, 

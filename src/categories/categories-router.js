@@ -65,16 +65,19 @@ categoriesRouter
             req.app.get('db'),
             req.params.category_name
         )
-            .then(category => {
-                if(!category){
+            .then(category_by_name => {
+                if(!category_by_name){
                     return res.status(404).json({
                         error: { message: `Category doesn't exist`}
                     })
                 }
-                res.category = category
+                res.category_by_name = category_by_name
                 next()
             })
             .catch()
+    })
+    .get((req, res, next) => {
+        res.status(200).json(res.category_by_name)
     })
     .delete(bodyParser, (req, res, next) => {
         CategoriesService.deleteCategory(
