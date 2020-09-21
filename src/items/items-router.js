@@ -21,6 +21,7 @@ itemsRouter
             req.params.user_id
         )   
             .then(items => {
+                console.log(req.body)
                 if(!items){
                     return res.status(404).json({
                         error:{
@@ -37,6 +38,7 @@ itemsRouter
         res.status(200).json(res.items)
     })
     .post(bodyParser, (req, res, next) => {
+        console.log(req.body)
         const { item_name, user_id, category_id, amount } = req.body;
         const newItem = {
             item_name,
@@ -44,7 +46,6 @@ itemsRouter
             category_id,
             amount
         }
-
         if(!item_name){
             return res.status(404).json({
                 error: { message: 'Missing item name in request body'}

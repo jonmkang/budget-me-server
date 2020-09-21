@@ -39,7 +39,7 @@ categoriesRouter
             category_title,
             user_id
         }
-        console.log(newCategory)
+
 
         if(!category_title){
             return res.status(404).json({
@@ -91,7 +91,7 @@ categoriesRouter
         const user_id = req.params.user_id;
         const updateCategory = { category_title, user_id }
 
-        if(!updateCateogry.category_title){
+        if(!updateCategory.category_title){
             return res.status(400).json({
                 error: {
                     message: `Request body must contain category title`
@@ -100,7 +100,7 @@ categoriesRouter
         }
         CategoriesService.updateCategory(
             req.app.get('db'),
-            req.params.category_title,
+            req.params.category_name,
             updateCategory
         )
             .then(numRowsAffected => {
