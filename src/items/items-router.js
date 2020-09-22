@@ -117,7 +117,7 @@ itemsRouter
             .then(item => {
                 res
                     .status(204)
-                    .json(item)
+                    .end()
             })
             .catch(next)
     })
