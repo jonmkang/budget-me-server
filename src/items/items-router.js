@@ -70,7 +70,7 @@ itemsRouter
 
         ItemsService.addItemByUserId(
             req.app.get('db'),
-            newItem
+            serializeItem(newItem)
         )
             .then(item => {
                 res.status(201)
@@ -112,7 +112,7 @@ itemsRouter
         itemsService.updateItem(
             req.app.get('db'),
             req.params.item_id,
-            item
+            serializeItem(item)
         )
             .then(item => {
                 res
