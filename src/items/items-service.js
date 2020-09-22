@@ -39,10 +39,11 @@ const ItemsService = {
         return db('item')
             .where('item_id', id)
             .update(item)
-            .returning('*')
-            .then(rows => {
-                return rows[0]
-            })
+    },
+    deleteItem(db, id){
+        return db('item')
+            .where('item_id', id)
+            .delete()
     }
 }
 

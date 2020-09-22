@@ -104,23 +104,10 @@ itemsRouter
         res.status(200).json(res.items)
     })
     .patch(bodyParser, (req, res, next) => {
-        const { item } = req.body;
-
-        itemsService.checkItemByUserId(
-            req.app.get('db'),
-            req.params.item_id, 
-            req.params.user_id
-        )
-        .then(item => {
-            if(!item){
-                return res.status(404).json({
-                    error:{
-                        message: `No item does not exist for user`
-                    }
-                })
-            }   
-        })
-        .catch(next)
+        const { item_id, amount, user_id, category_id } = req.body;
+        const item = {
+            item_id, amount, user_id, category_id
+        }
 
         itemsService.updateItem(
             req.app.get('db'),
@@ -128,10 +115,19 @@ itemsRouter
             item
         )
             .then(item => {
-                console.log(item)
                 res
                     .status(204)
                     .json(item)
+            })
+            .catch(next)
+    })
+    .delete((req, res, next) => {
+        ItemsService.deleteItem(
+            req.app.get('db'),
+            req.params.item_id
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
             })
             .catch(next)
     })
