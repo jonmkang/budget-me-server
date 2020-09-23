@@ -7,10 +7,10 @@ const ItemsService = require('./items-service');
 const itemsRouter = express.Router();
 
 const serializeItem = item => ({
-    item_name: item.item_name,
-    category_id: item.category_id,
-    user_id: item.user_id,
-    amount: item.amount
+    item_name: xss(item.item_name),
+    category_id: xss(item.category_id),
+    user_id: xss(item.user_id),
+    amount: xss(item.amount)
 })
 
 itemsRouter
