@@ -49,7 +49,7 @@ categoriesRouter
 
         CategoriesService.addCategory(
             req.app.get('db'),
-            serializeCategory(newCategory)
+            newCategory
         )
             .then(category => {
                 res.status(201)
