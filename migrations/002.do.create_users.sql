@@ -1,7 +1,7 @@
 CREATE TABLE budget_user (
     user_id SERIAL PRIMARY KEY,
     user_email TEXT NOT NULL,
-    user_password TEXT NOT NULL,
+    user_password TEXT NOT NULL
 );
 
 ALTER TABLE category
