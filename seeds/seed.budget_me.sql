@@ -33,4 +33,3 @@ VALUES
     ('Robinhood', 22, 3, 1);
 
 COMMIT;
-
