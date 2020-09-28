@@ -6,7 +6,7 @@ TRUNCATE
     item
     RESTART IDENTITY CASCADE;
 
-INSERT INTO budget_user(user_name, user_password)
+INSERT INTO budget_user(user_email, user_password)
 VALUES
     ('Demo', 'Abcd123!');
     
@@ -31,5 +31,9 @@ VALUES
     ('Cat litter', 35, 4, 1),
     ('Cat treats', 21, 4, 1),
     ('Robinhood', 22, 3, 1);
+
+insert INTO budgets (amount, user_id)
+VALUES 
+('3000', '1');
 
 COMMIT;
