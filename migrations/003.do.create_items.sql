@@ -4,5 +4,5 @@ CREATE TABLE item (
     amount INTEGER NOT NULL,
     category_id INTEGER REFERENCES category (category_id) ON UPDATE CASCADE ON DELETE CASCADE,
     user_id INTEGER REFERENCES budget_user (user_id) ON UPDATE CASCADE,
-    date_create TIMESTAMPTZ DEFAULT now() NOT NULL
+    date_create DATE NOT NULL DEFAULT CURRENT_DATE
 )

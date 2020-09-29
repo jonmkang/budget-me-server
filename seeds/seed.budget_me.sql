@@ -32,7 +32,7 @@ VALUES
     ('Cat treats', 21, 4, 1),
     ('Robinhood', 22, 3, 1);
 
-insert INTO budgets (amount, user_id)
+INSERT INTO budgets (amount, user_id)
 VALUES 
 ('3000', '1');
 

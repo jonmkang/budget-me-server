@@ -74,7 +74,7 @@ itemsRouter
         )
             .then(item => {
                 res.status(201)
-                    .json(serializeItem(item))
+                    .json(item)
             })
             .catch(next)
     })
