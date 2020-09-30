@@ -6,12 +6,6 @@ const path = require('path')
 const usersRouter = express.Router()
 const jsonBodyParser = express.json()
 
-usersRouter.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-
 usersRouter
     .post('/', jsonBodyParser, (req, res, next) => {
         const { user_password, user_email } = req.body;
