@@ -4,6 +4,7 @@ const bodyParser = express.json();
 const xss = require('xss')
 const CategoriesService = require('./categories-service');
 const categoriesRouter = express.Router();
+const { requireAuth } = require('../middleware/jwt-auth')
 
 const serializeCategory = category => ({
     category_id: category.category_id,

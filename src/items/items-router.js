@@ -4,6 +4,7 @@ const bodyParser = express.json();
 const xss = require('xss');
 const itemsService = require('./items-service');
 const itemsRouter = express.Router();
+const { requireAuth } = require('../middleware/jwt-auth')
 
 const serializeItem = item => ({
     item_name: xss(item.item_name),
@@ -14,7 +15,7 @@ const serializeItem = item => ({
 
 itemsRouter
     .route('/:user_id')
-    .all((req, res, next) => {
+    .get((req, res, next) => {
         itemsService.getItemsByUserId(
             req.app.get('db'),
             req.params.user_id
@@ -27,16 +28,14 @@ itemsRouter
                         }
                     });
                 }   
-                res.items = items
-                next()
+                res.items = items;
+                res.status(200).json(res.items)
             })
-            .catch()
-    })
-    .get((req, res, next) => {
-        res.status(200).json(res.items)
+            .catch(next)
     })
     .post(bodyParser, (req, res, next) => {
-        const { item_name, user_id, category_id, amount } = req.body;
+        const { item_name, category_id, amount } = req.body;
+        const { user_id } = req.params;
         const newItem = {
             item_name,
             user_id,
@@ -67,7 +66,7 @@ itemsRouter
             });
         };
 
-        ItemsService.addItemByUserId(
+        itemsService.addItemByUserId(
             req.app.get('db'),
             serializeItem(newItem)
         )

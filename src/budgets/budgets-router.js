@@ -4,10 +4,14 @@ const bodyParser = express.json();
 const xss = require('xss');
 const BudgetsService = require('./budgets-service');
 const budgetsRouter = express.Router();
+const { requireAuth } = require('../middleware/jwt-auth')
 
 budgetsRouter
     .route('/:user_id')
     .get((req, res, next) => {
+        if(!requireAuth){
+            return
+        }
         BudgetsService.getBudgetsByUserId(
             req.app.get('db'),
             req.params.user_id
@@ -26,13 +30,16 @@ budgetsRouter
             .catch(next)
     })
     .post(bodyParser, (req, res, next) => {
-        const { budget_amount, title, month_date } = req.body;
+        if(!requireAuth){
+            return
+        }
+        const { budget_amount, title, date_create } = req.body;
         const { user_id  } = req.params;
         const newBudget = {
             amount: budget_amount,
             user_id,
             title,
-            date_create: month_date
+            date_create
         }
 
         if(!budget_amount){
@@ -55,6 +62,9 @@ budgetsRouter
 budgetsRouter
     .route('/:user_id/:budget_id')
     .all((req, res, next) => {
+        if(!requireAuth){
+            return
+        }
         BudgetsService.getBudgetByBudgetId(
             req.app.get('db'),
             req.params.budget_id
