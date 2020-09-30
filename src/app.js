@@ -10,6 +10,7 @@ const itemsRouter = require('./items/items-router');
 const categoriesRouter = require('./categories/categories-router');
 const usersRouter = require('./users/users-router');
 const authRouter = require('./auth/auth-router');
+const budgetsRouter = require('./budgets/budgets-router');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/items', itemsRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/budgets',  budgetsRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response;

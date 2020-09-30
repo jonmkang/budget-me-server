@@ -1,9 +1,8 @@
-const express = require('express')
-const app = require('../app')
+const express = require('express');
+const app = require('../app');
 const bodyParser = express.json();
-const xss = require('xss')
+const xss = require('xss');
 const itemsService = require('./items-service');
-const ItemsService = require('./items-service');
 const itemsRouter = express.Router();
 
 const serializeItem = item => ({
@@ -11,7 +10,7 @@ const serializeItem = item => ({
     category_id: xss(item.category_id),
     user_id: xss(item.user_id),
     amount: xss(item.amount)
-})
+});
 
 itemsRouter
     .route('/:user_id')
@@ -26,9 +25,9 @@ itemsRouter
                         error:{
                             message: `No items found for user`
                         }
-                    })
+                    });
                 }   
-                res.items = items;
+                res.items = items
                 next()
             })
             .catch()
@@ -43,30 +42,30 @@ itemsRouter
             user_id,
             category_id,
             amount
-        }
+        };
         if(!item_name){
             return res.status(404).json({
                 error: { message: 'Missing item name in request body'}
-            })
-        }
+            });
+        };
 
         if(!user_id){
             return res.status(404).json({
                 error: { message: 'Missing user id in request body'}
-            })
-        }
+            });
+        };
 
         if(!category_id){
             return res.status(404).json({
                 error: { message: 'Missing category name in request body'}
-            })
-        }
+            });
+        };
 
         if(!amount){
             return res.status(404).json({
                 error: { message: 'Missing amount in request body'}
-            })
-        }
+            });
+        };
 
         ItemsService.addItemByUserId(
             req.app.get('db'),
@@ -107,7 +106,7 @@ itemsRouter
         const { item_id, amount, user_id, category_id } = req.body;
         const item = {
             item_id, amount, user_id, category_id
-        }
+        };
 
         itemsService.updateItem(
             req.app.get('db'),

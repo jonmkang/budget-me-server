@@ -32,8 +32,8 @@ VALUES
     ('Cat treats', 21, 4, 1),
     ('Robinhood', 22, 3, 1);
 
-INSERT INTO budgets (amount, user_id)
+INSERT INTO budgets (amount, title, user_id)
 VALUES 
-('3000', '1');
+('3000', 'September 30th Paycheck', '1');
 
 COMMIT;

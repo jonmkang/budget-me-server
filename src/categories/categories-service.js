@@ -6,7 +6,7 @@ const CategoriesService = {
         return db
             .select('*')
             .from('category')
-            .where('category.user_id', id)
+            .where('category.user_id', id)    
     },
     getByName(db, title){
         return db
