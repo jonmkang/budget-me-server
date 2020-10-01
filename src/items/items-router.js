@@ -120,7 +120,7 @@ itemsRouter
             .catch(next)
     })
     .delete((req, res, next) => {
-        ItemsService.deleteItem(
+        itemsService.deleteItem(
             req.app.get('db'),
             req.params.item_id
         )
