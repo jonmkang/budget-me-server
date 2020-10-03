@@ -25,7 +25,7 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.send('Hello, world!')
+    res.send('Service Alive.')
 });
 
 app.use('/api/items', itemsRouter);

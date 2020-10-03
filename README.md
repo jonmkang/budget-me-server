@@ -65,7 +65,18 @@ When a PATCH request is made, the item is updated with cross scripting cleared n
 
 When a DELETE request is made, the item is deleted.
 
+## /users
 
+When a POST request is made, it checks the body if the email and password is valid.
+    If a user has registered with an email already, an error is sent.
+    Otherwise, it stores a hashed password with the email as a user_email in the database.
+
+## /auth/login
+
+When a POST request is made, it checks the body to see if the email and password exists.
+    If either the email or password is incorrect it gives an error.
+    If the user_email or password does not match the password in the database, an error is sent.
+    Upon success, it creates a JSON web token and returns the token and user_id.
 
 
 
